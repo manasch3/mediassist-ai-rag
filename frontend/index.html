@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>AI Data Analyst</title>
+    
+    <!-- Tailwind CSS with Plugins -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries,typography"></script>
+    
+    <!-- External Libraries -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/vs2015.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/sql.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+    </style>
+    <link rel="stylesheet" href="styles.css">
+
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#257bf4",
+                        "background-light": "#f5f7f8",
+                        "background-dark": "#101722",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display transition-colors duration-300">
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar (Optional for later) -->
+        
+        <!-- Main Content -->
+        <main class="flex-1 flex flex-col relative bg-white dark:bg-background-dark">
+            <!-- Top Header -->
+            <header class="h-16 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between px-4 sm:px-6 z-10 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md">
+                <div class="flex items-center gap-4">
+                    <h1 class="font-bold text-sm sm:text-base text-slate-800 dark:text-slate-200 truncate max-w-[150px] sm:max-w-none">Hospitalisation Assistant</h1>
+                </div>
+                <div class="flex items-center gap-3">
+                    <!-- Profile Button -->
+                    <div id="profile-btn" class="size-9 flex items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer transition-all border-2 border-primary/20 p-0.5 overflow-hidden">
+                        <div class="size-full rounded-full bg-gradient-to-tr from-primary to-blue-400 flex items-center justify-center text-white">
+                            <span class="material-symbols-outlined text-[20px]">person</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Chat Area -->
+            <div id="chat-scroller" class="flex-1 overflow-y-auto custom-scrollbar p-4 sm:p-6 space-y-6 sm:space-y-8 pb-32">
+                <!-- Initial Greeting -->
+                <div id="greeting-section" class="max-w-3xl mx-auto px-4 sm:px-6 pb-8 text-center pt-20 sm:pt-32 transition-all duration-500">
+                    <div class="inline-flex items-center justify-center size-16 bg-primary/10 rounded-2xl mb-6">
+                        <span class="material-symbols-outlined text-primary text-4xl">health_and_safety</span>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight mb-4 bg-gradient-to-r from-primary to-blue-400 bg-clip-text text-transparent">
+                        Prepare for your hospitalisation
+                    </h2>
+                    <p class="text-sm sm:text-base text-slate-500 dark:text-slate-400 max-w-lg mx-auto leading-relaxed">
+                        Get expert guidance on admission, surgery preparation, and recovery.
+                    </p>
+                </div>
+
+                <!-- Messages will be appended here dynamically -->
+                <div id="messages-container" class="max-w-3xl mx-auto px-2 sm:px-6 space-y-8 sm:space-y-12"></div>
+
+            </div>
+
+            <!-- Input Area (Invisible Clipping via CSS Mask) -->
+            <footer class="fixed bottom-0 left-0 right-0 z-20 pb-8 bg-transparent pointer-events-none">
+                <div class="max-w-3xl mx-auto relative group pointer-events-auto px-4 sm:px-6">
+                    <div class="relative bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-[28px] shadow-xl shadow-slate-200/50 dark:shadow-none flex items-center p-1.5 transition-all duration-300 focus-within:ring-4 focus-within:ring-primary/10 focus-within:border-primary/30">
+                        <textarea id="user-query" class="flex-1 bg-transparent border-none focus:ring-0 text-slate-800 dark:text-slate-200 placeholder-slate-400 resize-none py-3 pl-5 pr-4 rounded-[28px] min-h-[48px] max-h-48 leading-relaxed" placeholder="Ask a question..." rows="1"></textarea>
+                        <button id="analyze-btn" class="bg-primary text-white size-10 rounded-full flex items-center justify-center hover:bg-primary/90 transition-all active:scale-95 shadow-lg shadow-primary/20 disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden shrink-0">
+                            <div id="btn-icon-container" class="flex items-center justify-center translate-y-[1px]">
+                                <span class="material-symbols-outlined text-[24px]">subdirectory_arrow_right</span>
+                            </div>
+                            <div id="btn-loading-container" class="hidden">
+                                <div class="loading-square"></div>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="mt-4 text-center">
+                        <p class="text-[10px] text-slate-300 dark:text-slate-600 font-medium tracking-tight uppercase tracking-widest opacity-80">Powered by Hospital Knowledge AI</p>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Notifications -->
+    <div id="toast-container"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
