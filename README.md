@@ -51,13 +51,10 @@
 5. **Access the interface**:
    Open your browser and navigate to `http://localhost:5000`.
 
-<<<<<<< HEAD
 ## 📄 License
 This project was developed by Manas as part of an internship evaluation task.
 
 The code is shared for demonstration and evaluation purposes only. It may be viewed and used for learning, but redistribution or commercial use is not permitted without permission.
-=======
->>>>>>> 26d0f08 (Prepare project for Render deployment (update app config and dependencies))
 
 ---
 *Powered by DeepSeek & Hospital Knowledge AI*
