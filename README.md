@@ -20,7 +20,7 @@
 
 ## 📋 Prerequisites
 
-- Python 3.9+
+- Python 3.12
 - A DeepSeek API Key
 
 ## ⚙️ Getting Started
@@ -51,7 +51,9 @@
    Open your browser and navigate to `http://localhost:5000`.
 
 ## 📄 License
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project was developed by Manas as part of an internship evaluation task.
+
+The code is shared for demonstration and evaluation purposes only. It may be viewed and used for learning, but redistribution or commercial use is not permitted without permission.
 
 ---
 *Powered by DeepSeek & Hospital Knowledge AI*
