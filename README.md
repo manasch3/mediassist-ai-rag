@@ -40,6 +40,7 @@
    Create a `.env` file in the root directory and add your API key:
    ```env
    DEEPSEEK_API_KEY=your_api_key_here
+   HUGGINGFACE_API_KEY =your_api_key_here
    ```
 
 4. **Run the application**:
